@@ -36,6 +36,14 @@ const queen: Mobility = (x1, y1, x2, y2) => {
   return bishop(x1, y1, x2, y2) || rook(x1, y1, x2, y2);
 }
 
+const elephant: Mobility = (x1, y1, x2, y2) => {
+  return rook(x1, y1, x2, y2) || knight(x1, y1, x2, y2);
+}
+
+const hawk: Mobility= (x1, y1, x2, y2) => {
+  return bishop(x1, y1, x2, y2) || knight(x1, y1, x2, y2);
+}
+
 function king(color: cg.Color, rookFiles: number[], canCastle: boolean): Mobility {
   return (x1, y1, x2, y2)  => (
     diff(x1, x2) < 2 && diff(y1, y2) < 2
@@ -73,6 +81,12 @@ export default function premove(pieces: cg.Pieces, key: cg.Key, canCastle: boole
       break;
     case 'queen':
       mobility = queen;
+      break;
+    case 'elephant':
+      mobility = elephant;
+      break;
+    case 'hawk':
+      mobility = hawk;
       break;
     case 'king':
       mobility = king(piece.color, rookFilesOf(pieces, piece.color), canCastle);
